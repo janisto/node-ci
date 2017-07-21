@@ -25,6 +25,7 @@
   "scripts": {
     "start": "node service.js",
     "lint": "eslint service.js ./modules",
+    "lint-ci": "eslint service.js ./modules --format junit --output-file /reports/eslint.xml",
     "test": "NODE_ENV=test jest",
     "audit": "auditjs -p ./package.json"
   },

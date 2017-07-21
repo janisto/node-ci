@@ -29,3 +29,12 @@ jobs:
 
       # run tests!
       - run: npm test
+
+      # run lint
+      - run: |
+          mkdir -p /reports
+          npm run lint-ci
+      - store_test_results:
+          path: /reports
+      - store_artifacts:
+          path: /reports  
