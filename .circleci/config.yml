@@ -33,7 +33,7 @@ jobs:
       # run lint
       - run: |
           mkdir -p reports
-          npm run lint-ci
+          npm run --silent lint-ci
       - store_test_results:
           path: reports
       - store_artifacts:
