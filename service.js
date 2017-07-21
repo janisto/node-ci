@@ -4,10 +4,6 @@ const express = require('express');
 
 const app = express();
 
-const other = () => {
-  return true;
-};
-
 app.get('/', (req, res) => {
   res.status(200).send('ok');
 });
