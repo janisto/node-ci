@@ -1,0 +1,14 @@
+language: node_js
+sudo: false
+node_js:
+  - "6"
+cache:
+  directories:
+    - "node_modules"
+env:
+  - DIR=./
+  - DIR=modules/fi.xxx.sample
+  - DIR=modules/fi.xxx.test
+matrix:
+  fast_finish: true
+script: cd $DIR && npm install && npm test

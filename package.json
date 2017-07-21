@@ -1,0 +1,41 @@
+{
+  "name": "node-ci",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "dependencies": {
+    "express": "^4.15.3",
+    "moment": "2.18.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "verbose": true,
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/coverage/",
+      "/modules/"
+    ],
+     "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/modules/"
+    ]
+  },
+  "scripts": {
+    "start": "node service.js",
+    "lint": "eslint service.js ./modules",
+    "test": "NODE_ENV=test jest",
+    "audit": "auditjs -p ./package.json"
+  },
+  "devDependencies": {
+    "auditjs": "^2.1.8",
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "jest": "^20.0.4",
+    "supertest": "^3.0.0"
+  }
+}
