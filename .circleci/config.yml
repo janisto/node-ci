@@ -13,19 +13,7 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - service-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - service-dependencies-
-
       - run: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: service-dependencies-{{ checksum "package.json" }}
 
       # run lint for all files
       - run: |
@@ -36,41 +24,31 @@ jobs:
       - store_artifacts:
           path: lint
 
-      # create jest test result folder
+      # create jest result folder
       - run: mkdir -p jest
 
-      # run service tests!
+      # run service tests
       - run: 
           command: npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
           environment:
             TEST_REPORT_PATH: jest
             TEST_REPORT_FILENAME: service-report.xml
 
-      # Download and cache dependencies for fi.xxx.sample
-      - restore_cache:
-          pwd: modules/fi.xxx.sample
-          keys:
-          - sample-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - sample-dependencies-
-
+      # run fi.xxx.sample tests
       - run:
           pwd: modules/fi.xxx.sample
-          command: npm install
-
-      - save_cache:
-          pwd: modules/fi.xxx.sample
-          paths:
-            - node_modules
-          key: sample-dependencies-{{ checksum "package.json" }}
-
-      # run fi.xxx.sample tests!
-      - run:
-          pwd: modules/fi.xxx.sample
-          command: npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
+          command: npm install && npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
           environment:
             TEST_REPORT_PATH: ../../jest
             TEST_REPORT_FILENAME: sample-report.xml
+
+      # run fi.xxx.test tests
+      - run:
+          pwd: modules/fi.xxx.test
+          command: npm install && npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
+          environment:
+            TEST_REPORT_PATH: ../../jest
+            TEST_REPORT_FILENAME: test-report.xml
 
       # store all jest results
       - store_test_results:
