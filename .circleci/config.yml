@@ -29,21 +29,21 @@ jobs:
 
       # run service tests
       - run: 
-          command: npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
+          command: npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: jest/service-report.xml
 
       # run fi.xxx.sample tests
       - run:
           pwd: modules/fi.xxx.sample
-          command: npm install && npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
+          command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: jest/sample-report.xml
 
       # run fi.xxx.test tests
       - run:
           pwd: modules/fi.xxx.test
-          command: npm install && npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
+          command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: jest/test-report.xml
 
