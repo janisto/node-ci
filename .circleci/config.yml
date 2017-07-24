@@ -13,15 +13,6 @@ jobs:
     steps:
       - checkout
 
-      # run lint
-      - run: |
-          mkdir -p lint
-          npm run --silent lint-ci
-      - store_test_results:
-          path: lint
-      - store_artifacts:
-          path: lint
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -35,6 +26,15 @@ jobs:
           paths:
             - node_modules
           key: service-dependencies-{{ checksum "package.json" }}
+
+      # run lint
+      - run: |
+          mkdir -p lint
+          npm run --silent lint-ci
+      - store_test_results:
+          path: lint
+      - store_artifacts:
+          path: lint
 
       # run service tests!
       - run: mkdir -p jest
