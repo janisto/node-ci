@@ -69,7 +69,7 @@ jobs:
           pwd: modules/fi.xxx.sample
           command: npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
           environment:
-            TEST_REPORT_PATH: jest
+            TEST_REPORT_PATH: ../../jest
             TEST_REPORT_FILENAME: sample-report.xml
 
       # store all jest results
