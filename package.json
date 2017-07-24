@@ -22,6 +22,13 @@
       "/modules/"
     ]
   },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
+  },
   "scripts": {
     "start": "node service.js",
     "lint": "eslint service.js ./modules",
