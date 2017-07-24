@@ -18,7 +18,7 @@ jobs:
       # run lint for all files
       - run: |
           mkdir -p lint
-          npm run --silent lint-ci
+          npm run lint --silent -- --format junit --output-file lint/eslint.xml
       - store_test_results:
           path: lint
       - store_artifacts:
