@@ -13,6 +13,15 @@ jobs:
     steps:
       - checkout
 
+      # run lint
+      - run: |
+          mkdir -p lint
+          npm run --silent lint-ci
+      - store_test_results:
+          path: lint
+      - store_artifacts:
+          path: lint
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -27,14 +36,14 @@ jobs:
             - node_modules
           key: service-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
-      - run: npm test
-
-      # run lint
-      - run: |
-          mkdir -p reports
-          npm run --silent lint-ci
+      # run service tests!
+      - run: mkdir -p jest
+      - run: 
+          command: npm test -- --testResultsProcessor jest-junit-reporter --coverageReporters lcov --coverage
+          environment:
+            TEST_REPORT_PATH: jest # used by jest-junit-reporter
+            TEST_REPORT_FILENAME: service-report.xml # used by jest-junit-reporter
       - store_test_results:
-          path: reports
+          path: jest
       - store_artifacts:
-          path: reports
+          path: jest
