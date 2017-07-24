@@ -38,14 +38,14 @@ jobs:
           pwd: modules/fi.xxx.sample
           command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
-            JEST_JUNIT_OUTPUT: jest/sample-report.xml
+            JEST_JUNIT_OUTPUT: ../../jest/sample-report.xml
 
       # run fi.xxx.test tests
       - run:
           pwd: modules/fi.xxx.test
           command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
-            JEST_JUNIT_OUTPUT: jest/test-report.xml
+            JEST_JUNIT_OUTPUT: ../../jest/test-report.xml
 
       # store all jest results
       - store_test_results:
