@@ -21,37 +21,38 @@ jobs:
             export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
             echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
             curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-            sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
-
-      - run: npm install
-
-      # create jest result folder
-      - run: mkdir -p jest
+            sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
 
       # run service tests
       - run: 
-          command: npm test -- --testResultsProcessor jest-junit --coverage
+          name: service unit tests
+          command: |
+            mkdir -p jest
+            npm install --silent && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: jest/service-report.xml
 
       # run fi.xxx.sample tests
       - run:
+          name: fi.xxx.sample unit tests
           pwd: modules/fi.xxx.sample
-          command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm install --silent && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/sample-report.xml
 
       # run fi.xxx.test tests
       - run:
+          name: fi.xxx.test unit tests
           pwd: modules/fi.xxx.test
-          command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm install --silent && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/test-report.xml
 
       # run fi.xxx.datastore tests
       - run:
+          name: fi.xxx.datastore unit tests
           pwd: modules/fi.xxx.datastore
-          command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm install --silent && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/datastore-report.xml
 
