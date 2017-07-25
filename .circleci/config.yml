@@ -13,42 +13,62 @@ jobs:
     steps:
       - checkout
 
-      - run: npm install
-
-      # run lint for all files
-      - run: |
-          mkdir -p lint
-          npm run lint --silent -- --format junit --output-file lint/eslint.xml
-      - store_test_results:
-          path: lint
-      - store_artifacts:
-          path: lint
-
-      # create jest result folder
-      - run: mkdir -p jest
+      # Install Google Cloud SDK packages
+      - run:
+          name: Install Google Cloud SDK packages
+          command: |
+            sudo apt-get update && sudo apt-get install apt-transport-https lsb-release
+            export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+            echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+            curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+            sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
 
       # run service tests
       - run: 
-          command: npm test -- --testResultsProcessor jest-junit --coverage
+          name: service unit tests
+          command: |
+            mkdir -p jest
+            npm install --silent --depth 0 && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: jest/service-report.xml
 
       # run fi.xxx.sample tests
       - run:
+          name: fi.xxx.sample unit tests
           pwd: modules/fi.xxx.sample
-          command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm install --silent --depth 0 && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/sample-report.xml
 
       # run fi.xxx.test tests
       - run:
+          name: fi.xxx.test unit tests
           pwd: modules/fi.xxx.test
-          command: npm install && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm install --silent --depth 0 && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/test-report.xml
+
+      # run fi.xxx.datastore tests
+      - run:
+          name: fi.xxx.datastore unit tests
+          pwd: modules/fi.xxx.datastore
+          command: npm install --silent --depth 0 && npm test -- --testResultsProcessor jest-junit --coverage
+          environment:
+            JEST_JUNIT_OUTPUT: ../../jest/datastore-report.xml
 
       # store all jest results
       - store_test_results:
           path: jest
       - store_artifacts:
           path: jest
+
+      # run lint for all files
+      - run:
+          name: Run eslint
+          command: |
+            mkdir -p lint
+            npm run lint --silent -- --format junit --output-file lint/eslint.xml
+      - store_test_results:
+          path: lint
+      - store_artifacts:
+          path: lint

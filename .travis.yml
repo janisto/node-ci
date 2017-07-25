@@ -15,6 +15,7 @@ env:
   - DIR=./
   - DIR=modules/fi.xxx.sample
   - DIR=modules/fi.xxx.test
+  - DIR=modules/fi.xxx.datastore
 matrix:
   fast_finish: true
-script: cd $DIR && npm install && npm test
+script: cd $DIR && npm install --silent --depth 0 && npm test
