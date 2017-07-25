@@ -54,12 +54,12 @@ describe('Test Datastore', () => {
       })).resolves.toBeDefined();
     });
   });
+});
 
-  describe('Test class', () => {
-    it('test', () => {
-      const datastore = new Module();
+describe('Test class', () => {
+  it('test', () => {
+    const datastore = new Module();
 
-      return expect(datastore.test(2)).resolves.toEqual(4);
-    });
+    return expect(datastore.test(2)).resolves.toEqual(4);
   });
 });
