@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "node service.js",
-    "lint": "eslint service.js ./modules",
+    "lint": "eslint ./",
     "test": "NODE_ENV=test jest",
     "audit": "auditjs -p ./package.json"
   },
