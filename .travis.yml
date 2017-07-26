@@ -18,4 +18,6 @@ env:
   - DIR=modules/fi.xxx.datastore
 matrix:
   fast_finish: true
-script: cd $DIR && npm install --silent --depth 0 && npm test
+script:
+  - cd $DIR && npm install --silent --depth 0 && npm test
+  - npm run lint
