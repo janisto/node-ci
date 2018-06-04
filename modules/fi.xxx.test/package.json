@@ -1,7 +1,7 @@
 {
   "name": "fi.xxx.test",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "author": "",
   "dependencies": {
@@ -25,11 +25,9 @@
   },
   "scripts": {
     "lint": "eslint ./",
-    "test": "NODE_ENV=test jest",
-    "audit": "auditjs -p ./package.json"
+    "test": "NODE_ENV=test jest"
   },
   "devDependencies": {
-    "auditjs": "2.2.6",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "13.0.0",
     "eslint-plugin-import": "2.8.0",
