@@ -4,7 +4,7 @@ sudo: true
 node_js:
   - "8"
 before_install:
-  - npm i -g npm@6
+  - sudo npm i -g npm@6
   - node -v
   - npm -v
   - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
