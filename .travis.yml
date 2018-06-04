@@ -1,6 +1,6 @@
 language: node_js
 dist: trusty
-sudo: true
+sudo: false
 node_js:
   - "8"
 before_install:
@@ -14,6 +14,7 @@ before_install:
   - sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
 cache:
   directories:
+    - $HOME/.npm
     - "node_modules"
 env:
   - DIR=./
