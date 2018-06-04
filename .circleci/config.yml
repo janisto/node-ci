@@ -6,12 +6,21 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:6.11
+      - image: circleci/node:8.11
 
     working_directory: ~/repo
 
     steps:
       - checkout
+
+      # Install npm 6
+      - run:
+          name: Install npm 6
+          command: |
+            npm config set spin false
+            sudo npm i -g npm@6
+            node -v
+            npm -v
 
       # Install Google Cloud SDK packages
       - run:
