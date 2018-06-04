@@ -6,7 +6,6 @@ node_js:
 before_install:
   - npm config set spin false
   - npm i -g npm@6
-  - node -v
   - npm -v
   - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
   - echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -15,7 +14,6 @@ before_install:
 cache:
   directories:
     - $HOME/.npm
-    - "node_modules"
 env:
   - DIR=./
   - DIR=modules/fi.xxx.sample
