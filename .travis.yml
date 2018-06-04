@@ -22,4 +22,4 @@ env:
 matrix:
   fast_finish: true
 script:
-  - cd $DIR && npm install --silent --depth 0 && npm test && npm run lint -- --ignore-pattern modules
+  - cd $DIR && npm ci && npm test && npm run lint -- --ignore-pattern modules

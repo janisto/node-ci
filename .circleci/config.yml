@@ -19,7 +19,6 @@ jobs:
           command: |
             npm config set spin false
             sudo npm i -g npm@6
-            node -v
             npm -v
 
       # Install Google Cloud SDK packages
@@ -37,7 +36,7 @@ jobs:
           name: service unit tests
           command: |
             mkdir -p jest
-            npm install --silent --depth 0 && npm test -- --testResultsProcessor jest-junit --coverage
+            npm ci && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: jest/service-report.xml
 
@@ -45,7 +44,7 @@ jobs:
       - run:
           name: fi.xxx.sample unit tests
           pwd: modules/fi.xxx.sample
-          command: npm install --silent --depth 0 && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm ci && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/sample-report.xml
 
@@ -53,7 +52,7 @@ jobs:
       - run:
           name: fi.xxx.test unit tests
           pwd: modules/fi.xxx.test
-          command: npm install --silent --depth 0 && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm ci && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/test-report.xml
 
@@ -61,7 +60,7 @@ jobs:
       - run:
           name: fi.xxx.datastore unit tests
           pwd: modules/fi.xxx.datastore
-          command: npm install --silent --depth 0 && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm ci && npm test -- --testResultsProcessor jest-junit --coverage
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/datastore-report.xml
 
