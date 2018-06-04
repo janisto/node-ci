@@ -17,6 +17,7 @@ jobs:
       - run:
           name: Install npm 6
           command: |
+            npm config set spin false
             sudo npm i -g npm@6
             node -v
             npm -v
