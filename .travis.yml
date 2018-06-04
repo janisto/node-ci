@@ -2,8 +2,11 @@ language: node_js
 dist: trusty
 sudo: true
 node_js:
-  - "6"
+  - "8"
 before_install:
+  - npm i -g npm@6
+  - node -v
+  - npm -v
   - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
   - echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
   - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
