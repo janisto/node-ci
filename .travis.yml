@@ -4,14 +4,10 @@ sudo: false
 node_js:
   - "10"
 before_install:
-  - npm -v
   - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
   - echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
   - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
   - sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
-cache:
-  directories:
-    - $HOME/.npm
 script:
   - cd $TRAVIS_BUILD_DIR && npm ci && npm run lint && npm test
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.sample && npm ci && npm test
