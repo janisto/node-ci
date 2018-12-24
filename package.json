@@ -35,6 +35,7 @@
   },
   "scripts": {
     "start": "node service.js",
+    "dev": "nodemon",
     "lint": "eslint ./",
     "test": "NODE_ENV=test jest --runInBand",
     "prettier": "prettier --write '**/*.js'"
@@ -50,6 +51,7 @@
     "eslint-plugin-prettier": "3.0.0",
     "jest": "23.6.0",
     "jest-junit": "5.2.0",
+    "nodemon": "1.18.9",
     "prettier": "1.15.3",
     "supertest": "3.3.0"
   }

@@ -2,9 +2,7 @@
 
 /* global jasmine, describe, it, beforeAll, afterAll, expect */
 
-/* eslint-disable import/no-extraneous-dependencies */
 const Emulator = require('google-datastore-emulator');
-/* eslint-enable import/no-extraneous-dependencies */
 const Datastore = require('@google-cloud/datastore');
 const Module = require('../index');
 const path = require('path');
