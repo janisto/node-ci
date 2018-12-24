@@ -2,9 +2,6 @@
 
 /* global describe, it, beforeEach, afterEach, expect */
 
-/* eslint-disable global-require */
-/* eslint-disable import/no-extraneous-dependencies */
-
 const request = require('supertest');
 
 describe('service', () => {

@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-
 const app = express();
 
 app.get('/', (req, res) => {
@@ -10,7 +9,7 @@ app.get('/', (req, res) => {
 
 const server = app.listen(4000, () => {
   // const port = server.address().port;
-  // console.log('App listening on port %s', port);
+  // console.log(`App listening on port: ${port}`);
 });
 
 module.exports = server;
