@@ -81,13 +81,13 @@ jobs:
 
 workflows:
   version: 2
-  build:
+  commit:
     jobs:
       - build
   nightly:
     triggers:
       - schedule:
-          cron: "0 * * * *"
+          cron: "0 4 * * *"
           filters:
             branches:
               only:
