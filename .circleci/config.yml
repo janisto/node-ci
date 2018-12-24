@@ -6,20 +6,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.11
+      - image: circleci/node:10
 
     working_directory: ~/repo
 
     steps:
       - checkout
-
-      # Install npm 6
-      - run:
-          name: Install npm 6
-          command: |
-            npm config set spin false
-            sudo npm i -g npm@6
-            npm -v
 
       # Install Google Cloud SDK packages
       - run:
@@ -36,7 +28,7 @@ jobs:
           name: service unit tests
           command: |
             mkdir -p jest
-            npm ci && npm test -- --testResultsProcessor jest-junit --coverage
+            npm ci && npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT: jest/service-report.xml
 
@@ -44,7 +36,7 @@ jobs:
       - run:
           name: fi.xxx.sample unit tests
           pwd: modules/fi.xxx.sample
-          command: npm ci && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm ci && npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/sample-report.xml
 
@@ -52,7 +44,7 @@ jobs:
       - run:
           name: fi.xxx.test unit tests
           pwd: modules/fi.xxx.test
-          command: npm ci && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm ci && npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/test-report.xml
 
@@ -60,7 +52,7 @@ jobs:
       - run:
           name: fi.xxx.datastore unit tests
           pwd: modules/fi.xxx.datastore
-          command: npm ci && npm test -- --testResultsProcessor jest-junit --coverage
+          command: npm ci && npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/datastore-report.xml
 

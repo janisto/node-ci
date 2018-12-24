@@ -1,6 +1,6 @@
 'use strict';
 
-/* global jest, jasmine, describe, it, beforeAll, afterAll, beforeEach, afterEach, expect */
+/* global describe, it, expect */
 
 const Test = require('../index');
 

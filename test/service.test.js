@@ -1,6 +1,6 @@
 'use strict';
 
-/* global jest, jasmine, describe, it, beforeAll, afterAll, beforeEach, afterEach, expect */
+/* global describe, it, beforeEach, afterEach, expect */
 
 /* eslint-disable global-require */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -20,16 +20,16 @@ describe('service', () => {
 
   it('responds to /', () => {
     return request(service)
-    .get('/')
-    .expect(200)
-    .then((res) => {
-      expect(res.text).toBe('ok');
-    });
+      .get('/')
+      .expect(200)
+      .then((res) => {
+        expect(res.text).toBe('ok');
+      });
   });
 
   it('404 everything else', () => {
     return request(service)
-    .get('/xxx')
-    .expect(404);
+      .get('/xxx')
+      .expect(404);
   });
 });
