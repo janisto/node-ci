@@ -23,12 +23,29 @@ jobs:
             curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
             sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
 
+      # Prepare tests
+      - run:
+          name: Prepare tests
+          command: |
+            mkdir -p jest
+            mkdir -p lint
+            bash .circleci/install.sh
+
+      # run lint for all files
+      - run:
+          name: Run eslint
+          command: |
+            npm run lint --silent -- --format junit --output-file lint/eslint.xml
+      - store_test_results:
+          path: lint
+      - store_artifacts:
+          path: lint
+
       # run service tests
       - run: 
           name: service unit tests
           command: |
-            mkdir -p jest
-            npm ci && npm test -- --ci
+            npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT: jest/service-report.xml
 
@@ -36,7 +53,7 @@ jobs:
       - run:
           name: fi.xxx.sample unit tests
           pwd: modules/fi.xxx.sample
-          command: npm ci && npm test -- --ci
+          command: npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/sample-report.xml
 
@@ -44,7 +61,7 @@ jobs:
       - run:
           name: fi.xxx.test unit tests
           pwd: modules/fi.xxx.test
-          command: npm ci && npm test -- --ci
+          command: npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/test-report.xml
 
@@ -52,7 +69,7 @@ jobs:
       - run:
           name: fi.xxx.datastore unit tests
           pwd: modules/fi.xxx.datastore
-          command: npm ci && npm test -- --ci
+          command: npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/datastore-report.xml
 
@@ -62,13 +79,18 @@ jobs:
       - store_artifacts:
           path: jest
 
-      # run lint for all files
-      - run:
-          name: Run eslint
-          command: |
-            mkdir -p lint
-            npm run lint --silent -- --format junit --output-file lint/eslint.xml
-      - store_test_results:
-          path: lint
-      - store_artifacts:
-          path: lint
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build
