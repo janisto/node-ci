@@ -1,11 +1,9 @@
 language: node_js
-dist: trusty
+dist: xenial
 sudo: false
 node_js:
-  - "8"
+  - "10"
 before_install:
-  - npm config set spin false
-  - npm i -g npm@6
   - npm -v
   - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
   - echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -14,12 +12,8 @@ before_install:
 cache:
   directories:
     - $HOME/.npm
-env:
-  - DIR=./
-  - DIR=modules/fi.xxx.sample
-  - DIR=modules/fi.xxx.test
-  - DIR=modules/fi.xxx.datastore
-matrix:
-  fast_finish: true
 script:
-  - cd $DIR && npm ci && npm test && npm run lint -- --ignore-pattern modules
+  - cd $TRAVIS_BUILD_DIR && npm ci && npm run lint && npm test
+  - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.sample && npm ci && npm test
+  - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.test && npm ci && npm test
+  - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.datastore && npm ci && npm test

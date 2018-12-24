@@ -1,6 +1,6 @@
 'use strict';
 
-/* global jest, jasmine, describe, it, beforeAll, afterAll, beforeEach, afterEach, expect */
+/* global jasmine, describe, it, beforeAll, afterAll, expect */
 
 /* eslint-disable import/no-extraneous-dependencies */
 const Emulator = require('google-datastore-emulator');
@@ -23,15 +23,14 @@ describe('Test Datastore', () => {
       consistency: 1.0,
       host: 'localhost',
       port: 8090, // Each test suite needs to have a unique port.
-      dataDir: emulatorDir
+      dataDir: emulatorDir,
     };
     emulator = new Emulator(options);
-    return emulator.start()
-    .then(() => {
+    return emulator.start().then(() => {
       // console.log('Emulator ready. Host: ', process.env.DATASTORE_EMULATOR_HOST);
       ds = Datastore({
         keyFilename: {},
-        projectId: 'test'
+        projectId: 'test',
       });
       return true;
     });
@@ -45,13 +44,15 @@ describe('Test Datastore', () => {
     it('Save promise should resolve', () => {
       const key = ds.key(['TestData']);
       const data = {
-        title: 'Test'
+        title: 'Test',
       };
 
-      return expect(ds.save({
-        key: key,
-        data: data
-      })).resolves.toBeDefined();
+      return expect(
+        ds.save({
+          key: key,
+          data: data,
+        }),
+      ).resolves.toBeDefined();
     });
   });
 });
