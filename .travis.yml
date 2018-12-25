@@ -9,7 +9,9 @@ before_install:
   - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
   - sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
 script:
-  - cd $TRAVIS_BUILD_DIR && npm ci && npm run lint && npm test
+  - cd $TRAVIS_BUILD_DIR && npm ci && npm test
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.sample && npm ci && npm test
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.test && npm ci && npm test
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.datastore && npm ci && npm test
+  - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.pubsub && npm ci && npm test
+  - cd $TRAVIS_BUILD_DIR && npm run lint

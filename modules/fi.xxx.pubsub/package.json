@@ -1,0 +1,42 @@
+{
+  "name": "fi.xxx.pubsub",
+  "private": true,
+  "version": "2.1.0",
+  "description": "",
+  "author": "Jani Mikkonen",
+  "engines": {
+    "node": ">=10.x.x"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "verbose": true,
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/coverage/"
+    ]
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "classNameTemplate": "{classname}",
+    "suiteNameTemplate": "{title}",
+    "titleTemplate": "{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test jest --runInBand"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "0.22.2"
+  },
+  "devDependencies": {
+    "google-pubsub-emulator": "3.0.0",
+    "jest": "23.6.0",
+    "jest-junit": "5.2.0"
+  }
+}
