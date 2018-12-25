@@ -73,6 +73,14 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT: ../../jest/datastore-report.xml
 
+      # run fi.xxx.pubsub tests
+      - run:
+          name: fi.xxx.pubsub unit tests
+          pwd: modules/fi.xxx.pubsub
+          command: npm test -- --ci
+          environment:
+            JEST_JUNIT_OUTPUT: ../../jest/pubsub-report.xml
+
       # store all jest results
       - store_test_results:
           path: jest

@@ -1,14 +1,13 @@
 'use strict';
 
-/* global jasmine, describe, it, beforeAll, afterAll, expect */
+/* global jest, describe, it, beforeAll, afterAll, expect */
 
 const Emulator = require('google-datastore-emulator');
 const Datastore = require('@google-cloud/datastore');
 const Module = require('../index');
 const path = require('path');
 
-// Increase timeout
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
+jest.setTimeout(20 * 1000);
 
 describe('Test Datastore', () => {
   // Each test suite needs to have a unique folder.

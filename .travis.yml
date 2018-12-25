@@ -13,3 +13,4 @@ script:
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.sample && npm ci && npm test
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.test && npm ci && npm test
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.datastore && npm ci && npm test
+  - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.pubsub && npm ci && npm test
