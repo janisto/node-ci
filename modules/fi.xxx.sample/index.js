@@ -6,6 +6,6 @@ module.exports = class Sample {
   }
 
   test(num) {
-    return num * 2;
+    return Promise.resolve(num * 2);
   }
 };
