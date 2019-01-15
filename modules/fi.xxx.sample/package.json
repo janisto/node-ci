@@ -5,7 +5,7 @@
   "description": "",
   "author": "Jani Mikkonen",
   "engines": {
-    "node": ">=10.x.x"
+    "node": "11.6.0"
   },
   "jest": {
     "testEnvironment": "node",
