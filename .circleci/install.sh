@@ -22,3 +22,6 @@ done
 echo "Running project npm install"
 cd "$BASE_PATH"
 npm ci
+
+# Add codecov
+sudo npm i -g codecov
