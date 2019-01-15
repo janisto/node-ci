@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "pinVersions": true,
+  "rebaseStalePrs": true,
+  "schedule": [
+    "after 9am and before 3pm"
+  ],
+  "packageRules": [
+    {
+      "extends": "packages:linters",
+      "groupName": "linters"
+    },
+    {
+      "extends": "packages:unitTest",
+      "groupName": "unit test packages"
+    }
+  ]
+}
