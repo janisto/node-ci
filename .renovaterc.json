@@ -12,6 +12,19 @@
     {
       "extends": "packages:unitTest",
       "groupName": "unit test packages"
+    },
+    {
+      "packagePatterns": [
+        "*"
+      ],
+      "rangeStrategy": "pin"
+    },
+    {
+      "depTypeList": [
+        "engines",
+        "peerDependencies"
+      ],
+      "rangeStrategy": "auto"
     }
   ]
 }
