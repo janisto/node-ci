@@ -2,8 +2,8 @@
 
 /* global jest, describe, it, beforeAll, afterAll, expect */
 
+const { Datastore } = require('@google-cloud/datastore');
 const Emulator = require('google-datastore-emulator');
-const Datastore = require('@google-cloud/datastore');
 const Module = require('../index');
 const path = require('path');
 
@@ -25,7 +25,7 @@ describe('Test Datastore', () => {
     emulator = new Emulator(options);
     return emulator.start().then(() => {
       // console.log('Emulator ready. Host: ', process.env.DATASTORE_EMULATOR_HOST);
-      ds = Datastore({
+      ds = new Datastore({
         keyFilename: {},
         projectId: 'test',
       });
