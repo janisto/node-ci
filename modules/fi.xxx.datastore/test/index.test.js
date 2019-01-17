@@ -17,6 +17,7 @@ describe('Test Datastore', () => {
 
   beforeAll(() => {
     const options = {
+      debug: false,
       consistency: 1.0,
       host: 'localhost',
       port: 8090, // Each test suite needs to have a unique port.
@@ -38,11 +39,19 @@ describe('Test Datastore', () => {
   });
 
   describe('Test save', () => {
-    it('Save promise should resolve', () => {
-      const key = ds.key(['TestData']);
-      const data = {
-        title: 'Test',
-      };
+    it('Save should resolve', () => {
+      const key = ds.key(['TestData', 'id-1']);
+      const data = [
+        {
+          name: 'createdAt',
+          value: new Date(),
+        },
+        {
+          name: 'title',
+          value: 'Test',
+          excludeFromIndexes: true,
+        },
+      ];
 
       return expect(
         ds.save({
@@ -50,6 +59,42 @@ describe('Test Datastore', () => {
           data: data,
         }),
       ).resolves.toBeDefined();
+    });
+  });
+
+  describe('Test get', () => {
+    it('Get should return entity', () => {
+      const key = ds.key(['TestData', 'id-1']);
+      const expected = {
+        title: 'Test',
+        createdAt: expect.any(Date),
+      };
+
+      return ds.get(key).then((result) => {
+        expect(result[0]).toMatchObject(expected);
+      });
+    });
+  });
+
+  describe('Test query', () => {
+    it('runQuery should return entities', async () => {
+      const query = ds.createQuery('TestData').order('createdAt');
+      const expected = {
+        title: 'Test',
+        createdAt: expect.any(Date),
+      };
+
+      const [tasks] = await ds.runQuery(query);
+      expect(tasks.length).toBe(1);
+      expect(tasks[0]).toMatchObject(expected);
+    });
+  });
+
+  describe('Test delete', () => {
+    it('Delete should delete entity', () => {
+      const key = ds.key(['TestData', 'id-1']);
+
+      return expect(ds.delete(key)).resolves.toBeDefined();
     });
   });
 });
