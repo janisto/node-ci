@@ -95,7 +95,13 @@ describe('fi.st1.pubsub messages', () => {
         // console.log(`Message sent. Duration: ${duration}ms`);
       };
 
-      ps.subscribeToTopic(topicName, subName, { flowControl: { maxMessages: 1 } })
+      const options = {
+        ackDeadline: 60,
+        flowControl: {
+          maxMessages: 1,
+        },
+      };
+      ps.subscribeToTopic(topicName, subName, options)
         .then((subscription) => {
           expect(subscription.name).toBe(`projects/${PROJECT_ID}/subscriptions/${subName}`);
           sub = subscription;
@@ -177,7 +183,13 @@ describe('fi.st1.pubsub messages', () => {
         // console.log(`Message sent. Duration: ${duration}ms`);
       };
 
-      ps.subscribeToTopic(topicName, subName, { flowControl: { maxMessages: messageCount } })
+      const options = {
+        ackDeadline: 60,
+        flowControl: {
+          maxMessages: messageCount,
+        },
+      };
+      ps.subscribeToTopic(topicName, subName, options)
         .then((subscription) => {
           expect(subscription.name).toBe(`projects/${PROJECT_ID}/subscriptions/${subName}`);
           sub = subscription;
