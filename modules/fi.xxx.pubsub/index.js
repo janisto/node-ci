@@ -31,11 +31,11 @@ module.exports = class PubSub {
 
   async publishMessageToTopic(topicName, data = {}, attributes = {}, options = {}) {
     const topic = await this.getTopic(topicName);
-    const publisher = topic.publisher(options);
+    topic.setPublishOptions(options);
     if (!Buffer.isBuffer(data)) {
       data = Buffer.from(JSON.stringify(data));
     }
-    const messageId = await publisher.publish(data, attributes);
+    const messageId = await topic.publish(data, attributes);
     return messageId;
   }
 
