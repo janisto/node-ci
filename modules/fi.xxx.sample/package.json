@@ -36,6 +36,6 @@
   },
   "devDependencies": {
     "jest": "23.6.0",
-    "jest-junit": "6.0.1"
+    "jest-junit": "6.2.1"
   }
 }
