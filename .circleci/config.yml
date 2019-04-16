@@ -31,7 +31,12 @@ jobs:
             mkdir -p lint
             bash .circleci/install.sh
 
-      # run lint for all files
+      # Run Prettier check for all JS files
+      - run:
+          name: Run Prettier check for all JS files
+          command: ./node_modules/.bin/prettier --check "**/*.js"
+
+      # Run ESLint for all files
       - run:
           name: Run eslint
           command: |
