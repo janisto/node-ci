@@ -29,14 +29,18 @@
     "usePathForSuiteName": "true"
   },
   "scripts": {
-    "test": "NODE_ENV=test jest --runInBand"
+    "test": "NODE_ENV=test jest --runInBand",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
-    "@google-cloud/pubsub": "0.29.1"
+    "@google-cloud/pubsub": "0.29.1",
+    "snyk": "^1.230.5"
   },
   "devDependencies": {
     "google-pubsub-emulator": "3.0.1",
     "jest": "24.9.0",
     "jest-junit": "8.0.0"
-  }
+  },
+  "snyk": true
 }
