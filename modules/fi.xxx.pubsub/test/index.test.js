@@ -96,7 +96,7 @@ describe('fi.st1.pubsub messages', () => {
       };
 
       const options = {
-        ackDeadline: 60,
+        // ackDeadline: 60,
         flowControl: {
           maxMessages: 1,
         },
@@ -112,7 +112,7 @@ describe('fi.st1.pubsub messages', () => {
         });
     });
 
-    it('subscribeToTopic() and ack messages after retry', (done) => {
+    it.skip('subscribeToTopic() and ack messages after retry', (done) => {
       const topicName = 'topic-2';
       const subName = 'subscription-2';
       const messageCount = 10;
