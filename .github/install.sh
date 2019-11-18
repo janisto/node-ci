@@ -2,8 +2,8 @@
 
 echo "Installing module dependencies..."
 
-BASE_PATH="/home/circleci/repo"
-MODULES="/home/circleci/repo/modules"
+BASE_PATH="/home/runner/work/node-ci/node-ci"
+MODULES="/home/runner/work/node-ci/node-ci/modules"
 
 # install module dependencies separately to save memory
 cd "$MODULES"
@@ -22,8 +22,5 @@ done
 echo "Running project npm install"
 cd "$BASE_PATH"
 npm ci
-
-# Add codecov
-sudo npm i -g codecov
 
 mkdir -p reports

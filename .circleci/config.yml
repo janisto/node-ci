@@ -1,19 +1,18 @@
-# Javascript Node CircleCI 2.0 configuration file
+# Javascript Node CircleCI 2.1 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
-      # Install Google Cloud SDK packages
       - run:
           name: Install Google Cloud SDK packages
           command: |
@@ -23,74 +22,70 @@ jobs:
             curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
             sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
 
-      # Prepare tests
       - run:
           name: Prepare tests
           command: |
-            mkdir -p jest
-            mkdir -p lint
             bash .circleci/install.sh
 
-      # Run Prettier check for all JS files
       - run:
           name: Run Prettier check for all JS files
           command: ./node_modules/.bin/prettier --check "**/*.js"
 
-      # Run ESLint for all files
       - run:
-          name: Run eslint
+          name: Run ESLint
           command: |
-            npm run lint --silent -- --format junit --output-file lint/eslint.xml
-      - store_test_results:
-          path: lint
-      - store_artifacts:
-          path: lint
+            npm run lint --silent -- --format junit --output-file reports/eslint.xml
 
-      # run service tests
       - run: 
           name: service unit tests
           command: |
             npm test -- --ci && codecov -p . -F service
           environment:
-            JEST_JUNIT_OUTPUT: jest/service-report.xml
+            JEST_JUNIT_OUTPUT_DIR: ./reports
+            JEST_JUNIT_OUTPUT_NAME: service-report.xml
 
-      # run fi.xxx.sample tests
       - run:
           name: fi.xxx.sample unit tests
-          pwd: modules/fi.xxx.sample
+          working_directory: modules/fi.xxx.sample
           command: npm test -- --ci && codecov -p ../.. -F sample
           environment:
-            JEST_JUNIT_OUTPUT: ../../jest/sample-report.xml
+            JEST_JUNIT_OUTPUT_DIR: ../../reports
+            JEST_JUNIT_OUTPUT_NAME: sample-report.xml
 
-      # run fi.xxx.test tests
       - run:
           name: fi.xxx.test unit tests
-          pwd: modules/fi.xxx.test
+          working_directory: modules/fi.xxx.test
           command: npm test -- --ci && codecov -p ../.. -F test
           environment:
-            JEST_JUNIT_OUTPUT: ../../jest/test-report.xml
+            JEST_JUNIT_OUTPUT_DIR: ../../reports
+            JEST_JUNIT_OUTPUT_NAME: test-report.xml
 
-      # run fi.xxx.datastore tests
       - run:
           name: fi.xxx.datastore unit tests
-          pwd: modules/fi.xxx.datastore
+          working_directory: modules/fi.xxx.datastore
           command: npm test -- --ci && codecov -p ../.. -F datastore
           environment:
-            JEST_JUNIT_OUTPUT: ../../jest/datastore-report.xml
+            JEST_JUNIT_OUTPUT_DIR: ../../reports
+            JEST_JUNIT_OUTPUT_NAME: datastore-report.xml
 
-      # run fi.xxx.pubsub tests
       - run:
           name: fi.xxx.pubsub unit tests
-          pwd: modules/fi.xxx.pubsub
+          working_directory: modules/fi.xxx.pubsub
           command: npm test -- --ci && codecov -p ../.. -F pubsub
           environment:
-            JEST_JUNIT_OUTPUT: ../../jest/pubsub-report.xml
+            JEST_JUNIT_OUTPUT_DIR: ../../reports
+            JEST_JUNIT_OUTPUT_NAME: pubsub-report.xml
 
-      # store all jest results
+      - run:
+          name: List code coverage reports
+          working_directory: ./reports
+          command: |
+            ls -la
+
       - store_test_results:
-          path: jest
+          path: reports
       - store_artifacts:
-          path: jest
+          path: reports
 
 workflows:
   version: 2
