@@ -1,8 +1,10 @@
 language: node_js
-dist: xenial
+dist: bionic
 sudo: false
 node_js:
-  - "10"
+  - 8
+  - 10
+  - 12
 before_install:
   - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
   - echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -14,4 +16,5 @@ script:
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.test && npm ci && npm test
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.datastore && npm ci && npm test
   - cd $TRAVIS_BUILD_DIR/modules/fi.xxx.pubsub && npm ci && npm test
+  - cd $TRAVIS_BUILD_DIR && ./node_modules/.bin/prettier --check "**/*.js"
   - cd $TRAVIS_BUILD_DIR && npm run lint
