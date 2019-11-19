@@ -13,25 +13,77 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: npm install
+    - name: Install Google Cloud SDK packages
       run: |
-        npm ci
-      env:
-        CI: true
+        sudo apt-get update && sudo apt-get install apt-transport-https lsb-release
+        export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+        echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+        sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator
+
+    - name: npm install
+      run: ./.github/install.sh
 
     - name: Run Prettier check for all JS files
       run: |
         ./node_modules/.bin/prettier --check "**/*.js"
-      env:
-        CI: true
 
-    - name: npm test
+    - name: Run ESLint
       run: |
-        npm test
+        npm run lint --silent -- --format junit --output-file reports/eslint.xml
+
+    - name: service unit tests
+      run: |
+        npm test -- --ci
       env:
-        CI: true
+        JEST_JUNIT_OUTPUT_DIR: ./reports
+        JEST_JUNIT_OUTPUT_NAME: service-report.xml
+
+    - name: fi.xxx.sample unit tests
+      working-directory: ./modules/fi.xxx.sample
+      run: |
+        npm test -- --ci
+      env:
+        JEST_JUNIT_OUTPUT_DIR: ../../reports
+        JEST_JUNIT_OUTPUT_NAME: sample-report.xml
+
+    - name: fi.xxx.test unit tests
+      working-directory: ./modules/fi.xxx.test
+      run: |
+        npm test -- --ci
+      env:
+        JEST_JUNIT_OUTPUT_DIR: ../../reports
+        JEST_JUNIT_OUTPUT_NAME: test-report.xml
+
+    - name: fi.xxx.datastore unit tests
+      working-directory: ./modules/fi.xxx.datastore
+      run: |
+        npm test -- --ci
+      env:
+        JEST_JUNIT_OUTPUT_DIR: ../../reports
+        JEST_JUNIT_OUTPUT_NAME: datastore-report.xml
+
+    - name: fi.xxx.pubsub unit tests
+      working-directory: ./modules/fi.xxx.pubsub
+      run: |
+        npm test -- --ci
+      env:
+        JEST_JUNIT_OUTPUT_DIR: ../../reports
+        JEST_JUNIT_OUTPUT_NAME: pubsub-report.xml
+
+    - name: List code coverage reports
+      working-directory: ./reports
+      run: |
+        ls -la
+
+    - name: Archive code coverage reports
+      uses: actions/upload-artifact@v1
+      with:
+        name: code-coverage-reports
+        path: ./reports
