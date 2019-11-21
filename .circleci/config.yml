@@ -1,15 +1,7 @@
-# Javascript Node CircleCI 2.1 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2.1
-jobs:
-  build:
-    docker:
-      - image: circleci/node:12
 
-    working_directory: ~/repo
-
+commands:
+  test-nodejs:
     steps:
       - checkout
 
@@ -87,11 +79,30 @@ jobs:
       - store_artifacts:
           path: reports
 
+jobs:
+  node-v8:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - test-nodejs
+  node-v10:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - test-nodejs
+  node-v12:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - test-nodejs
+
 workflows:
   version: 2
   commit:
     jobs:
-      - build
+      - node-v8
+      - node-v10
+      - node-v12
   nightly:
     triggers:
       - schedule:
@@ -101,4 +112,6 @@ workflows:
               only:
                 - master
     jobs:
-      - build
+      - node-v8
+      - node-v10
+      - node-v12

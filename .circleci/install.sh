@@ -2,8 +2,8 @@
 
 echo "Installing module dependencies..."
 
-BASE_PATH="/home/circleci/repo"
-MODULES="/home/circleci/repo/modules"
+BASE_PATH="/home/circleci/project"
+MODULES="/home/circleci/project/modules"
 
 # install module dependencies separately to save memory
 cd "$MODULES"
