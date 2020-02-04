@@ -91,7 +91,7 @@ describe('fi.st1.pubsub messages', () => {
         );
         const end = Date.now();
         const duration = end - start;
-        expect(duration).toBeLessThan(500);
+        expect(duration).toBeLessThan(2000);
         // console.log(`Message sent. Duration: ${duration}ms`);
       };
 
@@ -179,7 +179,7 @@ describe('fi.st1.pubsub messages', () => {
         );
         const end = Date.now();
         const duration = end - start;
-        expect(duration).toBeLessThan(500);
+        expect(duration).toBeLessThan(2000);
         // console.log(`Message sent. Duration: ${duration}ms`);
       };
 
