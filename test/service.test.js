@@ -25,8 +25,6 @@ describe('service', () => {
   });
 
   it('404 everything else', () => {
-    return request(service)
-      .get('/xxx')
-      .expect(404);
+    return request(service).get('/xxx').expect(404);
   });
 });
