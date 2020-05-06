@@ -2,9 +2,9 @@ language: node_js
 dist: bionic
 sudo: false
 node_js:
-  - 8
   - 10
   - 12
+  - 14
 before_install:
   - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
   - echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list

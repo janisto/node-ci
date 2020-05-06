@@ -80,11 +80,6 @@ commands:
           path: reports
 
 jobs:
-  node-v8:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - test-nodejs
   node-v10:
     docker:
       - image: circleci/node:10
@@ -95,14 +90,19 @@ jobs:
       - image: circleci/node:12
     steps:
       - test-nodejs
+  node-v14:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - test-nodejs
 
 workflows:
   version: 2
   commit:
     jobs:
-      - node-v8
       - node-v10
       - node-v12
+      - node-v14
   nightly:
     triggers:
       - schedule:
@@ -112,6 +112,6 @@ workflows:
               only:
                 - master
     jobs:
-      - node-v8
       - node-v10
       - node-v12
+      - node-v14
