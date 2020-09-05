@@ -35,7 +35,7 @@
     "@google-cloud/pubsub": "2.5.0"
   },
   "devDependencies": {
-    "google-pubsub-emulator": "3.0.2",
+    "google-pubsub-emulator": "4.0.0",
     "jest": "26.4.2",
     "jest-junit": "11.1.0"
   }
