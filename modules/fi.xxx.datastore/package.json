@@ -35,7 +35,7 @@
     "@google-cloud/datastore": "6.1.0"
   },
   "devDependencies": {
-    "google-datastore-emulator": "3.0.2",
+    "google-datastore-emulator": "4.0.0",
     "jest": "26.4.2",
     "jest-junit": "11.1.0"
   }
