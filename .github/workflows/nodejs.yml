@@ -84,7 +84,7 @@ jobs:
         ls -la
 
     - name: Archive code coverage reports
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: code-coverage-reports
         path: ./reports
