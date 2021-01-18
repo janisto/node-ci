@@ -53,6 +53,6 @@
     "jest-junit": "12.0.0",
     "nodemon": "2.0.7",
     "prettier": "2.2.1",
-    "supertest": "6.0.1"
+    "supertest": "6.1.1"
   }
 }
