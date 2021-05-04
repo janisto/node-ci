@@ -91,7 +91,7 @@ jobs:
       - test-nodejs
   node-v16:
     docker:
-      - image: cimg/node:16.0
+      - image: cimg/node:16.1
     steps:
       - test-nodejs
 
