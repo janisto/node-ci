@@ -81,12 +81,12 @@ commands:
 jobs:
   node-v12:
     docker:
-      - image: cimg/node:12.22
+      - image: cimg/node:16.1
     steps:
       - test-nodejs
   node-v14:
     docker:
-      - image: cimg/node:14.16
+      - image: cimg/node:16.1
     steps:
       - test-nodejs
   node-v16:
