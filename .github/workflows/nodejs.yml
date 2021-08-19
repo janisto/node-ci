@@ -20,6 +20,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Check versions
+      run: |
+        node --version
+        npm --version
+
     - name: Install Google Cloud SDK packages
       run: |
         sudo apt-get update -y && sudo apt-get install apt-transport-https ca-certificates gnupg -y

@@ -6,6 +6,12 @@ commands:
       - checkout
 
       - run:
+          name: Check versions
+          command: |
+            node --version
+            npm --version
+
+      - run:
           name: Install Google Cloud SDK packages
           command: |
             sudo apt-get update -y && sudo apt-get install apt-transport-https ca-certificates gnupg -y
@@ -81,17 +87,17 @@ commands:
 jobs:
   node-v12:
     docker:
-      - image: cimg/node:12.22
+      - image: circleci/node:12
     steps:
       - test-nodejs
   node-v14:
     docker:
-      - image: cimg/node:14.17
+      - image: circleci/node:14
     steps:
       - test-nodejs
   node-v16:
     docker:
-      - image: cimg/node:16.7
+      - image: circleci/node:16
     steps:
       - test-nodejs
 
