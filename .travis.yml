@@ -2,9 +2,9 @@ language: node_js
 dist: focal
 sudo: false
 node_js:
-  - 12
-  - 14
-  - 16
+  - 12.22.6
+  - 14.17.6
+  - 16.9.1
 before_install:
   - node --version
   - npm --version
