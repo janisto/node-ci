@@ -32,7 +32,7 @@
     "test": "NODE_ENV=test jest --runInBand"
   },
   "dependencies": {
-    "@google-cloud/pubsub": "2.18.5"
+    "@google-cloud/pubsub": "2.19.0"
   },
   "devDependencies": {
     "google-pubsub-emulator": "5.0.0",
