@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "express": "4.17.3",
-    "moment": "2.29.2"
+    "moment": "2.29.3"
   },
   "devDependencies": {
     "eslint": "8.13.0",
