@@ -41,7 +41,7 @@
     "prettier": "prettier --write '**/*.js'"
   },
   "dependencies": {
-    "express": "4.17.3",
+    "express": "4.18.0",
     "moment": "2.29.3"
   },
   "devDependencies": {
