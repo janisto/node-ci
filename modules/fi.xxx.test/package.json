@@ -35,7 +35,7 @@
     "moment": "2.29.3"
   },
   "devDependencies": {
-    "jest": "28.1.0",
+    "jest": "28.1.1",
     "jest-junit": "13.2.0"
   }
 }
