@@ -37,6 +37,6 @@
   "devDependencies": {
     "google-datastore-emulator": "5.2.0",
     "jest": "28.1.1",
-    "jest-junit": "13.2.0"
+    "jest-junit": "14.0.0"
   }
 }
