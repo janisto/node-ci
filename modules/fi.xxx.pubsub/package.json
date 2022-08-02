@@ -1,11 +1,11 @@
 {
   "name": "fi.xxx.pubsub",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "",
   "author": "Jani Mikkonen",
   "engines": {
-    "node": ">=10.x.x"
+    "node": ">=14.x.x"
   },
   "jest": {
     "testEnvironment": "node",
@@ -32,7 +32,7 @@
     "test": "NODE_ENV=test jest --runInBand"
   },
   "dependencies": {
-    "@google-cloud/pubsub": "3.0.1"
+    "@google-cloud/pubsub": "3.1.0"
   },
   "devDependencies": {
     "google-pubsub-emulator": "5.0.0",

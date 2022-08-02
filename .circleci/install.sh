@@ -12,7 +12,7 @@ for D in $MODULES/*; do
     if [ -f "$D/package.json" ]; then
       echo "Preparing module $D..."
       cd "$D"
-      npm ci
+      npm ci --legacy-peer-deps
       cd ..
     fi
   fi
@@ -21,6 +21,6 @@ done
 # run root install with pre/post hooks
 echo "Running project npm install"
 cd "$BASE_PATH"
-npm ci
+npm ci --legacy-peer-deps
 
 mkdir -p reports
