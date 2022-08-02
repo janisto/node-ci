@@ -1,15 +1,19 @@
 version: 2.1
 
+orbs: 
+  codecov: codecov/codecov@3.2.3
+
 commands:
   test-nodejs:
     steps:
       - checkout
 
       - run:
-          name: Check versions
+          name: Install OpenJDK
           command: |
-            node --version
-            npm --version
+            sudo apt-get update && sudo apt-get install openjdk-11-jdk
+            sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+            sudo update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/javac
 
       - run:
           name: Install Google Cloud SDK packages
@@ -18,6 +22,14 @@ commands:
             echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
             curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
             sudo apt-get update -y && sudo apt-get install google-cloud-sdk google-cloud-sdk-datastore-emulator google-cloud-sdk-pubsub-emulator -y
+
+      - run:
+          name: Check versions
+          command: |
+            node --version
+            npm --version
+            java --version
+            gcloud --version
 
       - run:
           name: Prepare tests
@@ -36,7 +48,7 @@ commands:
       - run: 
           name: service unit tests
           command: |
-            npm test -- --ci && codecov -p . -F service
+            npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports
             JEST_JUNIT_OUTPUT_NAME: service-report.xml
@@ -44,7 +56,7 @@ commands:
       - run:
           name: fi.xxx.sample unit tests
           working_directory: modules/fi.xxx.sample
-          command: npm test -- --ci && codecov -p ../.. -F sample
+          command: npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ../../reports
             JEST_JUNIT_OUTPUT_NAME: sample-report.xml
@@ -52,7 +64,7 @@ commands:
       - run:
           name: fi.xxx.test unit tests
           working_directory: modules/fi.xxx.test
-          command: npm test -- --ci && codecov -p ../.. -F test
+          command: npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ../../reports
             JEST_JUNIT_OUTPUT_NAME: test-report.xml
@@ -60,7 +72,7 @@ commands:
       - run:
           name: fi.xxx.datastore unit tests
           working_directory: modules/fi.xxx.datastore
-          command: npm test -- --ci && codecov -p ../.. -F datastore
+          command: npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ../../reports
             JEST_JUNIT_OUTPUT_NAME: datastore-report.xml
@@ -68,7 +80,7 @@ commands:
       - run:
           name: fi.xxx.pubsub unit tests
           working_directory: modules/fi.xxx.pubsub
-          command: npm test -- --ci && codecov -p ../.. -F pubsub
+          command: npm test -- --ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ../../reports
             JEST_JUNIT_OUTPUT_NAME: pubsub-report.xml
@@ -87,19 +99,22 @@ commands:
 jobs:
   node-v12:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:12.22
     steps:
       - test-nodejs
+      - codecov/upload
   node-v14:
     docker:
-      - image: circleci/node:14
+      - image: cimg/node:14.20
     steps:
       - test-nodejs
+      - codecov/upload
   node-v16:
     docker:
-      - image: circleci/node:16
+      - image: cimg/node:16.16
     steps:
       - test-nodejs
+      - codecov/upload
 
 workflows:
   version: 2
