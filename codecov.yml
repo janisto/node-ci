@@ -1,0 +1,24 @@
+flags:
+  datastore:
+    paths:
+      - modules/fi.xxx.datastore/
+    carryforward: true
+  pubsub:
+    paths:
+      - modules/fi.xxx.pubsub/
+    carryforward: true
+  sample:
+    paths:
+      - modules/fi.xxx.sample/
+    carryforward: true
+  test:
+    paths:
+      - modules/fi.xxx.test/
+    carryforward: true
+  service:
+    paths:
+      - service.js
+    carryforward: true
+
+comment: 
+  layout: "reach, diff, flags, files"
