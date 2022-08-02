@@ -51,7 +51,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "jest": "28.1.1",
     "jest-junit": "14.0.0",
-    "nodemon": "2.0.18",
+    "nodemon": "2.0.19",
     "prettier": "2.7.1",
     "supertest": "6.2.3"
   }
