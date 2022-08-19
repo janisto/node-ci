@@ -111,7 +111,7 @@ jobs:
       - codecov/upload
   node-v16:
     docker:
-      - image: cimg/node:16.16
+      - image: cimg/node:16.17
     steps:
       - test-nodejs
       - codecov/upload
