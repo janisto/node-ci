@@ -99,19 +99,19 @@ commands:
 jobs:
   node-v12:
     docker:
-      - image: cimg/node:12.22
+      - image: cimg/node:19.9
     steps:
       - test-nodejs
       - codecov/upload
   node-v14:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:19.9
     steps:
       - test-nodejs
       - codecov/upload
   node-v16:
     docker:
-      - image: cimg/node:16.17
+      - image: cimg/node:19.9
     steps:
       - test-nodejs
       - codecov/upload
