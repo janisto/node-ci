@@ -32,7 +32,7 @@
     "test": "NODE_ENV=test jest --runInBand"
   },
   "dependencies": {
-    "@google-cloud/datastore": "7.0.0"
+    "@google-cloud/datastore": "8.0.0"
   },
   "devDependencies": {
     "google-datastore-emulator": "6.0.0",
