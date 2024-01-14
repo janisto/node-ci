@@ -37,6 +37,6 @@
   "devDependencies": {
     "google-pubsub-emulator": "5.0.0",
     "jest": "28.1.3",
-    "jest-junit": "14.0.0"
+    "jest-junit": "14.0.1"
   }
 }
