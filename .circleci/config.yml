@@ -105,7 +105,7 @@ jobs:
       - codecov/upload
   node-v14:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:14.21
     steps:
       - test-nodejs
       - codecov/upload
